@@ -52,6 +52,7 @@ jobs:
         run: |
           version="$(opencode --version)"
           echo "Installed OpenCode version: $version"
+          version="${version#opencode v}"
           case "$version" in
             2.*) ;;
             *)
