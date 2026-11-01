@@ -84,13 +84,14 @@ jobs:
           test_location="$RUNNER_TEMP/hush-skill-smoke"
           mkdir -p "$test_location"
           cd "$test_location"
+          export OPENCODE_SERVER_PASSWORD="$(openssl rand -hex 24)"
 
           opencode serve --hostname 127.0.0.1 --port 4096 > "$RUNNER_TEMP/opencode-server.log" 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
 
           for attempt in $(seq 1 30); do
-            if curl -fsS "http://127.0.0.1:4096/global/health" >/dev/null; then
+            if curl -fsSu "opencode:$OPENCODE_SERVER_PASSWORD" "http://127.0.0.1:4096/global/health" >/dev/null; then
               break
             fi
             if ! kill -0 "$server_pid" 2>/dev/null; then
@@ -101,7 +102,7 @@ jobs:
           done
 
           for attempt in $(seq 1 30); do
-            if curl -fsSG --data-urlencode "location[directory]=$test_location" \
+            if curl -fsSu "opencode:$OPENCODE_SERVER_PASSWORD" -G --data-urlencode "location[directory]=$test_location" \
               "http://127.0.0.1:4096/api/skill" -o "$RUNNER_TEMP/skills.json"; then
               if node -e '
                 const payload = JSON.parse(require("node:fs").readFileSync(process.argv[1], "utf8"))
