@@ -7,7 +7,7 @@ Before publishing a GitHub repository or package:
 1. Replace `OWNER/REPOSITORY` in the website and `.agents/plugins/marketplace.json`.
 2. Confirm the npm package name `hush-agent-plugin` is available, or change it consistently in `package.json`, the MiMo config example, and OpenCode V1 documentation.
 3. Publish the npm package if using package-based OpenCode V1 or MiMo Code installation.
-4. Test `.opencode/plugins/hush.ts` in OpenCode V1.18.29+ and OpenCode V2 separately; the host APIs are different even though the package exposes both.
+4. Test `.opencode/plugins/hush.ts` in OpenCode V1.18.29+ and OpenCode V2 separately; verify the project-local V1 skill path and the native V2 `@hush` skill registry after a global Git plugin install.
 5. Test `.mimocode/plugin/hush.ts` in the current MiMo Code release. Confirm the host loads the `server()` member from the default export. For global use, test the npm package only after it is published.
 6. Test Claude Code plugin loading and Hush skill discovery; separately test Claude Web repository-marketplace installation and custom-plugin ZIP upload.
 7. Test the Codex plugin from a repository marketplace, then separately test the public OpenAI package in the submission portal.
