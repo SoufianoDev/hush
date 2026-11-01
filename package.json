@@ -20,8 +20,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "bundle": "node scripts/build.mjs"
   },
   "engines": {
     "node": ">=20"
