@@ -13,8 +13,8 @@ async function json(relative) {
   }
 }
 
+const packageManifest = await json("package.json")
 const manifestPaths = [
-  "package.json",
   "plugin.json",
   ".claude-plugin/plugin.json",
   ".claude-plugin/marketplace.json",
@@ -23,6 +23,21 @@ const manifestPaths = [
   ".agents/plugins/marketplace.json",
 ]
 for (const file of manifestPaths) await json(file)
+
+if (packageManifest) {
+  const scripts = packageManifest.scripts ?? {}
+  for (const name of ["build", "prepare", "preinstall", "install", "postinstall", "prepack"]) {
+    if (Object.hasOwn(scripts, name)) {
+      errors.push(`package.json: "${name}" is incompatible with OpenCode V2 Git plugin installation; use a non-lifecycle script name`)
+    }
+  }
+  if (Object.hasOwn(packageManifest, "workspaces")) {
+    errors.push("package.json: workspaces are incompatible with OpenCode V2 Git plugin installation")
+  }
+  if (scripts.bundle !== "node scripts/build.mjs") {
+    errors.push('package.json: bundle must run "node scripts/build.mjs"')
+  }
+}
 
 const skill = await readFile(path.join(root, "skills/hush/SKILL.md"), "utf8")
 const frontmatter = skill.match(/^---\r?\n([\s\S]*?)\r?\n---/)
