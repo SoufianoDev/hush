@@ -1,0 +1,30 @@
+{
+  "name": "hush-agent-plugin",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Native Hush plugin for OpenCode V1/V2 and MiMo Code, with portable plugin manifests for coding agents.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "files": [
+    "src/",
+    "skills/",
+    "plugin.json",
+    ".claude-plugin/",
+    ".codex-plugin/",
+    ".agents/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "validate": "node scripts/validate.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

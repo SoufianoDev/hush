@@ -1,0 +1,20 @@
+{
+  "name": "hush-plugins",
+  "interface": {
+    "displayName": "Hush"
+  },
+  "plugins": [
+    {
+      "name": "hush",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/OWNER/REPOSITORY"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

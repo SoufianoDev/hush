@@ -1,0 +1,16 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "hush",
+  "displayName": "Hush",
+  "version": "1.0.0",
+  "description": "Keeps code comments useful, preserves meaningful explanations and directives, and limits cleanup to code changed in the current task.",
+  "logo": "assets/hush-icon.png",
+  "suggestedPrompts": [
+    "Use Hush while editing this code and keep comments useful.",
+    "Review my latest changes for redundant comments without touching unrelated code."
+  ],
+  "author": {
+    "name": "Hush maintainers"
+  },
+  "license": "MIT"
+}

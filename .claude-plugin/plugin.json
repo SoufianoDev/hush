@@ -1,0 +1,8 @@
+{
+  "name": "hush",
+  "description": "Keep code comments useful, clean comment noise only in code changed during the current task, and format touched files.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hush maintainers"
+  }
+}

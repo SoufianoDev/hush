@@ -1,0 +1,13 @@
+{
+  "name": "hush",
+  "owner": {
+    "name": "Hush maintainers"
+  },
+  "plugins": [
+    {
+      "name": "hush",
+      "source": "./",
+      "description": "A coding workflow that keeps comments useful and avoids unrelated cleanup."
+    }
+  ]
+}

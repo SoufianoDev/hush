@@ -1,0 +1,9 @@
+{
+  "name": "hush",
+  "version": "1.0.0",
+  "description": "Keeps code comments useful and limits cleanup to code changed during the current task.",
+  "author": {
+    "name": "Hush maintainers"
+  },
+  "skills": "./skills/"
+}

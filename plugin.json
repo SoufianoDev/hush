@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hush",
+  "version": "1.0.0",
+  "description": "Keeps code comments useful: prevents redundant comments, preserves meaningful explanations and directives, and formats only files touched in the current task.",
+  "license": "MIT",
+  "keywords": [
+    "code-comments",
+    "comment-cleanup",
+    "coding-agent",
+    "formatting",
+    "developer-tools"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hush",
+        "shortDescription": "Useful code comments",
+        "longDescription": "Hush guides coding agents to avoid comments that merely restate code, preserve meaningful explanations and tool directives, limit cleanup to code changed in the current task, and use the project's existing formatter.",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Keep comments that explain intent, constraints, or invariants",
+          "Remove redundant comments from code changed in the current task",
+          "Use the project's existing formatter on touched files"
+        ],
+        "defaultPrompt": [
+          "Use Hush when editing this code and keep comments useful.",
+          "Review my latest changes for redundant comments without touching unrelated code."
+        ],
+        "brandColor": "#A3DE83",
+        "composerIcon": "./assets/hush-icon.png",
+        "logo": "./assets/hush-icon.png"
+      }
+    }
+  }
+}
