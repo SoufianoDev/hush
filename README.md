@@ -32,19 +32,19 @@ The build creates two upload archives from this one source tree: `dist/hush-clau
 
 ## Install
 
-Replace `OWNER/REPOSITORY` with the public GitHub repository containing this project. Open the matching application and use its install flow.
+Use `SoufianoDev/hush` as the public GitHub repository. Open the matching application and follow its install flow.
 
 ### Claude Code
 
 ```text
-/plugin marketplace add OWNER/REPOSITORY
+/plugin marketplace add SoufianoDev/hush
 /plugin install hush@hush
 ```
 
 Or from the terminal:
 
 ```bash
-claude plugin marketplace add OWNER/REPOSITORY
+claude plugin marketplace add SoufianoDev/hush
 claude plugin install hush@hush
 ```
 
@@ -55,7 +55,7 @@ Use `/plugin` to manage the installation and choose user, project, or local scop
 Add the repository marketplace:
 
 ```bash
-codex plugin marketplace add OWNER/REPOSITORY
+codex plugin marketplace add SoufianoDev/hush
 ```
 
 Then open Codex's plugin browser with `/plugins`, find Hush under the added marketplace, and install it. The repo marketplace descriptor is `.agents/plugins/marketplace.json`.
@@ -82,7 +82,7 @@ The dual V1/V2 package entrypoint requires OpenCode V1.18.29 or later. Older V1 
 The same `.opencode/plugins/hush.ts` shim is discovered automatically when this repository is the current project. For a global installation from another project, use the V2 terminal plugin manager:
 
 ```bash
-opencode plugin add github:OWNER/REPOSITORY
+opencode plugin add github:SoufianoDev/hush
 ```
 
 V2 uses the plural `plugins` setting internally. The same published package exports the V2 `setup()` implementation as well as the V1 `server()` implementation. V1 and V2 plugin APIs are different; this is not a V1 plugin merely renamed for V2.
@@ -92,7 +92,7 @@ V2 uses the plural `plugins` setting internally. The same published package expo
 From Antigravity CLI:
 
 ```bash
-agy plugin install https://github.com/OWNER/REPOSITORY
+agy plugin install https://github.com/SoufianoDev/hush
 agy plugin list
 ```
 
@@ -121,7 +121,7 @@ Claude Web supports the same Hush plugin through a repository marketplace or a c
 
 1. Open **Claude → Customize → Plugins**.
 2. Select **Add → Add marketplace → Add from a repository**.
-3. Enter the public GitHub repository as `OWNER/REPOSITORY` (or its repository URL).
+3. Enter the public GitHub repository as `SoufianoDev/hush` (or its repository URL).
 4. Open **Discover**, find Hush in the newly added marketplace, and click **Add**.
 
 Alternatively, build the project with `npm run build`, then use Claude's custom-plugin upload flow and select `dist/hush-claude-plugin.zip`. Plugins added in Claude Web are saved to the account and follow the user across Chat, Cowork, and Claude Code. Organization policies may restrict adding external marketplaces or plugins.
