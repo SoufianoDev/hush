@@ -79,7 +79,7 @@ if (openCodeSkill !== skill) {
 }
 
 const entry = await readFile(path.join(root, "src/index.ts"), "utf8")
-for (const token of ["experimental.chat.system.transform", "ctx.skill.transform", "ctx.session?.hook(\"context\"", "server,", "setup,"]) {
+for (const token of ["experimental.chat.system.transform", "ctx.skill?.transform", "ctx.session?.hook", "ctx.session.hook(\"context\"", "server,", "setup,"]) {
   if (!entry.includes(token)) errors.push(`src/index.ts: missing ${token}`)
 }
 if (!entry.includes("../skills/hush/SKILL.md")) errors.push("src/index.ts: plugin must load the bundled skill source")
