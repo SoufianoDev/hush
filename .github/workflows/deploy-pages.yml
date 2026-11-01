@@ -1,0 +1,57 @@
+name: Deploy Hush website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - "website/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Publish website
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Validate website files
+        run: |
+          test -s website/index.html
+          test -s website/privacy.html
+          test -s website/config.js
+          test -s website/downloads/hush-claude-plugin.zip
+          test -s website/downloads/hush-openai-plugin.zip
+          grep -q 'SoufianoDev/hush' website/config.js
+          if grep -R -n 'OWNER/REPOSITORY' website; then
+            echo "Unresolved repository placeholder found in website/"
+            exit 1
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: website/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
