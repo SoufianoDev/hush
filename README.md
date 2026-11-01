@@ -77,7 +77,7 @@ The repository includes `.opencode/plugins/hush.ts`, which re-exports the one Ty
 
 For global scope, edit `~/.config/opencode/opencode.json`. For project scope, put the entry in `opencode.json` at the project root. V1 package auto-install is handled by OpenCode at startup.
 
-The dual V1/V2 package entrypoint requires OpenCode V1.18.29 or later. Older V1 releases need a V1-only function-export build and are not claimed as supported by this package.
+The repository includes the native skill file at `.opencode/skills/hush/SKILL.md`. For a global V1 skill outside this repository, copy the canonical file to `~/.config/opencode/skills/hush/SKILL.md`. The dual V1/V2 package entrypoint requires OpenCode V1.18.29 or later. Older V1 releases need a V1-only function-export build and are not claimed as supported by this package.
 
 ### OpenCode V2
 
@@ -87,7 +87,7 @@ The same `.opencode/plugins/hush.ts` shim is discovered automatically when this 
 opencode plugin add github:SoufianoDev/hush
 ```
 
-V2 uses the plural `plugins` setting internally. The same published package exports the V2 `setup()` implementation as well as the V1 `server()` implementation. V1 and V2 plugin APIs are different; this is not a V1 plugin merely renamed for V2.
+V2 uses the plural `plugins` setting internally. The plugin registers Hush with OpenCode's native skill registry through `ctx.skill.transform()`, including when installed globally. In a conversation, type `@hush` and select the skill (or enter `@hush` directly) to load its full instructions for that message. OpenCode can also invoke it automatically when a task matches its description. The V2 hook no longer injects a second copy of the full skill into every model request; older V2 builds without the native skill registry retain the previous context-hook fallback. The same package keeps the V1 `server()` implementation.
 
 ### Antigravity
 

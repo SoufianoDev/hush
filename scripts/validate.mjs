@@ -73,8 +73,13 @@ for (const [file, target] of [
   if (!shim.includes(target)) errors.push(`${file}: expected to re-export the canonical TypeScript entrypoint`)
 }
 
+const openCodeSkill = await readFile(path.join(root, ".opencode/skills/hush/SKILL.md"), "utf8")
+if (openCodeSkill !== skill) {
+  errors.push(".opencode/skills/hush/SKILL.md: must stay identical to the canonical skills/hush/SKILL.md")
+}
+
 const entry = await readFile(path.join(root, "src/index.ts"), "utf8")
-for (const token of ["experimental.chat.system.transform", "ctx.session.hook(\"context\"", "server,", "setup,"]) {
+for (const token of ["experimental.chat.system.transform", "ctx.skill?.transform", "ctx.session?.hook", "ctx.session.hook(\"context\"", "server,", "setup,"]) {
   if (!entry.includes(token)) errors.push(`src/index.ts: missing ${token}`)
 }
 if (!entry.includes("../skills/hush/SKILL.md")) errors.push("src/index.ts: plugin must load the bundled skill source")

@@ -12,6 +12,7 @@
   "files": [
     "src/",
     "skills/",
+    ".opencode/skills/",
     "plugin.json",
     ".claude-plugin/",
     ".codex-plugin/",
