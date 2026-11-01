@@ -1,0 +1,80 @@
+name: Hush CI
+
+on:
+  pull_request:
+    branches:
+      - dev
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-bundle:
+    name: Validate manifests and build web packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate all host manifests and entrypoints
+        run: npm run validate
+
+      - name: Build Claude and ChatGPT upload packages
+        run: npm run bundle
+
+      - name: Verify generated archives
+        run: |
+          unzip -t dist/hush-claude-plugin.zip
+          unzip -t dist/hush-openai-plugin.zip
+
+  opencode-v2-install:
+    name: Install Hush through OpenCode V2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install OpenCode V2
+        run: npm install --global @opencode/cli
+
+      - name: Confirm OpenCode V2 is installed
+        run: |
+          version="$(opencode --version)"
+          echo "Installed OpenCode version: $version"
+          version="${version#opencode v}"
+          case "$version" in
+            2.*) ;;
+            *)
+              echo "Expected OpenCode V2, got: $version" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Install Hush from the tested Git branch
+        env:
+          PLUGIN_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          PLUGIN_REF: ${{ github.head_ref || github.ref_name }}
+        run: |
+          opencode plugin add "github:${PLUGIN_REPOSITORY}#${PLUGIN_REF}"
+          node <<'NODE'
+          const fs = require("node:fs")
+          const path = require("node:path")
+          const configPath = path.join(process.env.HOME, ".config/opencode/opencode.json")
+          const config = JSON.parse(fs.readFileSync(configPath, "utf8"))
+          const expected = `github:${process.env.PLUGIN_REPOSITORY}#${process.env.PLUGIN_REF}`
+          if (!JSON.stringify(config.plugins ?? []).includes(expected)) {
+            throw new Error(`OpenCode did not persist the Hush plugin specifier: ${expected}`)
+          }
+          console.log(`OpenCode persisted the Hush Git plugin: ${expected}`)
+          NODE

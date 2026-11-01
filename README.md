@@ -25,8 +25,10 @@ Requirements: Node.js 20+ and the `zip` utility.
 
 ```bash
 npm run validate
-npm run build
+npm run bundle
 ```
+
+The script is named `bundle` rather than `build` because OpenCode V2 currently fails to install Git dependencies whose package manifest declares a `build` script. The underlying `scripts/build.mjs` and generated archives are unchanged.
 
 The build creates two upload archives from this one source tree: `dist/hush-claude-plugin.zip` for Claude Web's custom-plugin upload fallback, and `dist/hush-openai-plugin.zip` for ChatGPT's public Plugins submission. Claude Web can instead install directly from the Git repository marketplace. Claude Code, Codex, OpenCode, Antigravity, and MiMo Code use their native application installation paths; they do not need separate downloadable project ZIPs. Both archives are generated from the same canonical `skills/hush/SKILL.md`; do not edit generated copies.
 
@@ -124,7 +126,7 @@ Claude Web supports the same Hush plugin through a repository marketplace or a c
 3. Enter the public GitHub repository as `SoufianoDev/hush` (or its repository URL).
 4. Open **Discover**, find Hush in the newly added marketplace, and click **Add**.
 
-Alternatively, build the project with `npm run build`, then use Claude's custom-plugin upload flow and select `dist/hush-claude-plugin.zip`. Plugins added in Claude Web are saved to the account and follow the user across Chat, Cowork, and Claude Code. Organization policies may restrict adding external marketplaces or plugins.
+Alternatively, build the project with `npm run bundle`, then use Claude's custom-plugin upload flow and select `dist/hush-claude-plugin.zip`. Plugins added in Claude Web are saved to the account and follow the user across Chat, Cowork, and Claude Code. Organization policies may restrict adding external marketplaces or plugins.
 
 ### ChatGPT Web
 
@@ -132,7 +134,7 @@ Hush is packaged as a skills-only portable Agent Plugin. To make it installable 
 
 1. Publish this repository and a public website containing `website/privacy.html`.
 2. Set the real website and privacy-policy URLs in the plugin listing metadata, and provide a verified publisher identity and support contact.
-3. Run `npm run build`, then upload `dist/hush-openai-plugin.zip` from the OpenAI Plugins submission portal.
+3. Run `npm run bundle`, then upload `dist/hush-openai-plugin.zip` from the OpenAI Plugins submission portal.
 4. Resolve automated findings, submit for review, wait for approval, and publish the approved version.
 5. Users can then find and install Hush from **ChatGPT → Plugins**.
 
