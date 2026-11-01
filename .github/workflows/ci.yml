@@ -67,4 +67,14 @@ jobs:
           PLUGIN_REF: ${{ github.head_ref || github.ref_name }}
         run: |
           opencode plugin add "github:${PLUGIN_REPOSITORY}#${PLUGIN_REF}"
-          opencode plugin list
+          node <<'NODE'
+          const fs = require("node:fs")
+          const path = require("node:path")
+          const configPath = path.join(process.env.HOME, ".config/opencode/opencode.json")
+          const config = JSON.parse(fs.readFileSync(configPath, "utf8"))
+          const expected = `github:${process.env.PLUGIN_REPOSITORY}#${process.env.PLUGIN_REF}`
+          if (!JSON.stringify(config.plugins ?? []).includes(expected)) {
+            throw new Error(`OpenCode did not persist the Hush plugin specifier: ${expected}`)
+          }
+          console.log(`OpenCode persisted the Hush Git plugin: ${expected}`)
+          NODE
