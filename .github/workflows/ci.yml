@@ -81,6 +81,10 @@ jobs:
 
       - name: Verify Hush is registered as a native skill
         run: |
+          test_location="$RUNNER_TEMP/hush-skill-smoke"
+          mkdir -p "$test_location"
+          cd "$test_location"
+
           opencode serve --hostname 127.0.0.1 --port 4096 > "$RUNNER_TEMP/opencode-server.log" 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
@@ -97,7 +101,7 @@ jobs:
           done
 
           for attempt in $(seq 1 30); do
-            if curl -fsSG --data-urlencode "directory=$GITHUB_WORKSPACE" \
+            if curl -fsSG --data-urlencode "location[directory]=$test_location" \
               "http://127.0.0.1:4096/api/skill" -o "$RUNNER_TEMP/skills.json"; then
               if node -e '
                 const payload = JSON.parse(require("node:fs").readFileSync(process.argv[1], "utf8"))
