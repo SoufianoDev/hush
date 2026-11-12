@@ -23,6 +23,10 @@ const manifestPaths = [
   ".agents/plugins/marketplace.json",
 ]
 for (const file of manifestPaths) await json(file)
+const codexMarketplace = await json(".agents/plugins/marketplace.json")
+if (codexMarketplace?.plugins?.some((plugin) => plugin.source?.url !== "https://github.com/SoufianoDev/hush")) {
+  errors.push(".agents/plugins/marketplace.json: plugin source must point to SoufianoDev/hush")
+}
 
 if (packageManifest) {
   const scripts = packageManifest.scripts ?? {}
