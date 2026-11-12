@@ -8,15 +8,15 @@ Hush teaches coding agents to avoid comments that merely restate code, preserve 
 
 | Host | Native integration | Install surface |
 |---|---|---|
-| Claude Code | Claude Code plugin with Hush skill | Plugin marketplace / `/plugin` |
-| Codex | Agent Plugin and Agent Skills | Codex plugin browser, marketplace, or Skills CLI |
-| Cursor | Root Agent Plugin manifest and Agent Skills | Cursor Plugins / Skills CLI |
+| Claude Code | Claude Code plugin and native Agent Skills | Plugin marketplace / `/plugin`, `.claude/skills/` |
+| Codex | Agent Plugin and shared Agent Skills | Codex plugin browser, marketplace, `.agents/skills/`, or Skills CLI |
+| Cursor | Agent Plugin plus native and shared Agent Skills | `plugin.json`, `.cursor/skills/`, `.agents/skills/` |
 | Cline | Agent Skills with native Cline project path | Skills CLI or `.cline/skills/` |
 | Roo Code | Agent Skills with Roo-specific and shared discovery | Skills CLI or `.roo/skills/` |
 | Junie | Agent Skills; also discovers shared `.agents/skills/` | Skills CLI / Junie skill locations |
 | Windsurf | Agent Skills | Skills CLI or `.windsurf/skills/` |
-| Gemini CLI | Agent Skills and `GEMINI.md` context | Skills CLI / shared `.agents/skills/` |
-| GitHub Copilot | Agent Skills for CLI, IDE, code review, and cloud agent | Skills CLI / `.agents/skills/` |
+| Gemini CLI | Native and shared Agent Skills | `.gemini/skills/`, `.agents/skills/`, or Skills CLI |
+| GitHub Copilot | Native and shared Agent Skills for CLI, IDE, code review, and cloud agent | `.github/skills/`, `.agents/skills/`, or Skills CLI |
 | OpenCode V1 | V1 plugin hook and native skill file | Project shim or npm package in `plugin` config |
 | OpenCode V2 | V2 plugin hook and native skill registry | `opencode plugin add` or `plugins` config |
 | Antigravity | Native plugin bundle and Agent Skills | `agy plugin install` / Customizations |
@@ -38,8 +38,16 @@ the correct project or user directory for the selected host.
 Install Hush for the agents you use:
 
 ```bash
-npx skills add SoufianoDev/hush --skill hush --agent cursor cline codex antigravity gemini-cli github-copilot junie opencode roo windsurf claude-code
+npx skills add SoufianoDev/hush --skill hush --agent cursor cline codex antigravity gemini-cli github-copilot junie opencode roo windsurf claude-code amp aider-desk augment continue goose kiro-cli kilo openhands pi qwen-code replit trae warp zed zencoder
 ```
+
+
+The Skills CLI also supports additional compatible agents, including Amp,
+AiderDesk, Augment, Continue, Goose, Kiro CLI, Kilo Code, OpenHands, Pi,
+Qwen Code, Replit, Trae, Warp, Zed, and Zencoder. These use the same canonical
+Agent Skills package; they do not require separate Hush implementations.
+Check the current [supported-agent list](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)
+for newly added hosts and their exact target identifiers.
 
 Add `--global` for user-level installation. To let the CLI detect installed
 agents and prompt for a target, omit `--agent`:
