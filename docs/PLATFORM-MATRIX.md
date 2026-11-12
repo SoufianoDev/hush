@@ -2,16 +2,31 @@
 
 | Host / version | Plugin contract | Hush entrypoint | What the install gives you |
 |---|---|---|---|
-| Claude Code | `.claude-plugin/plugin.json`, marketplace catalog, `skills/` | `skills/hush/SKILL.md` | Claude Code discovers the installed Hush skill as a plugin component. |
-| Codex | portable `plugin.json`, plugin marketplace, `skills/` | `skills/hush/SKILL.md` | Codex loads the bundled skill through the plugin. |
+| Claude Code | Claude Code plugin and Agent Skills | `.claude-plugin/plugin.json`, `skills/hush/SKILL.md` | Install through the Claude plugin marketplace or Skills CLI. |
+| Codex | Agent Plugin and Agent Skills | `plugin.json`, `.agents/skills/hush/SKILL.md` | Plugin marketplace or Skills CLI; shared project skill discovery. |
+| Cursor | Agent Plugins standard and Agent Skills | root `plugin.json`, `.agents/skills/hush/SKILL.md` | Cursor accepts the root Agent Plugin manifest and shared Agent Skills path. |
+| Cline | Native project skills | `.cline/skills/hush/SKILL.md` | Cline's Skills menu and slash-command discovery. |
+| Roo Code | Native and shared Agent Skills | `.roo/skills/hush/SKILL.md`, `.agents/skills/hush/SKILL.md` | Roo-specific skills take precedence; the shared path remains available to other agents. |
+| Junie | Native and shared Agent Skills | `.junie/skills/hush/SKILL.md`, `.agents/skills/hush/SKILL.md` | Junie CLI and IDEs discover both project and shared skill locations. |
+| Windsurf | Agent Skills | `.windsurf/skills/hush/SKILL.md` | Project skill path; global installs use `~/.codeium/windsurf/skills/`. |
+| Gemini CLI | Agent Skills and context files | `.agents/skills/hush/SKILL.md`, `GEMINI.md` | Shared skill discovery plus project context instructions. |
+| GitHub Copilot | Agent Skills | `.agents/skills/hush/SKILL.md` | Supported in Copilot CLI, IDE agent mode, code review, app, and cloud agent. |
 | OpenCode V1 | V1 module with `server()` and `experimental.chat.system.transform` plus native skill file | `.opencode/plugins/hush.ts` and `.opencode/skills/hush/SKILL.md` | Project-local plugin and skill discovery; global skill path is `~/.config/opencode/skills/hush/SKILL.md`. |
 | OpenCode V2 | V2 module with `id` and `setup(ctx)`; registers a native skill with `ctx.skill.transform()` | `.opencode/plugins/hush.ts` re-exports `src/index.ts` | Project-local or global plugin install; invoke with `@hush`, or let OpenCode select it automatically when relevant. |
-| Antigravity | `.antigravity-plugin/plugin.json` and `skills/` | `skills/hush/SKILL.md` | Antigravity uses its own strict manifest while sharing the canonical Hush skill. |
+| Antigravity | Native plugin manifest and Agent Skills | `.antigravity-plugin/plugin.json`, `.agents/skills/hush/SKILL.md` | CLI plugin install, Customizations, or Skills CLI. |
 | MiMo Code | MiMo's V1-compatible `server()` plugin contract | `.mimocode/plugin/hush.ts` re-exports `src/index.ts` | Project-local loading; global package installation uses MiMo's `plugin` config key after npm publication. |
+| Gemini Code Assist / Google Cloud Code | Project context file; no separate Hush skill plugin API | `GEMINI.md` | Agent mode is instructed to read the canonical Hush skill; availability depends on the Gemini Code Assist surface. |
+| Aider | Read-only context file | `aider --read skills/hush/SKILL.md` | Hush is included as context; no native progressive Agent Skills discovery is claimed. |
+| AiderDesk | Agent Skills | Skills CLI `aider-desk` target | Separate product from Aider; installs to its own skill directory. |
 | Claude Web | Claude plugin marketplace or custom plugin ZIP | `.claude-plugin/marketplace.json` and `dist/hush-claude-plugin.zip` | The same Claude plugin is installed into the Claude account and is available across Chat, Cowork, and Claude Code. |
 | ChatGPT Web | public Agent Plugin | generated `hush-openai-plugin.zip` | Skill available after OpenAI checks, review, and publication. |
 
 ## Compatibility boundaries
+
+- The Vercel Skills CLI installs the canonical `skills/hush` directory into each selected agent's supported project or user path. Hush documents the CLI target identifiers in the README; consult the CLI's current supported-agent list before adding new targets.
+- The shared `.agents/skills/hush/SKILL.md` supports agents that implement the cross-agent Agent Skills path. Cline, Roo Code, Junie, Windsurf, and OpenCode also have native project paths checked into this repository. All copies must match `skills/hush/SKILL.md`.
+- Aider itself is not listed as a native Agent Skills host by the Skills CLI. Use Aider's read-only `--read` option; do not describe that as automatic or on-demand skill discovery.
+- Gemini Code Assist / Google Cloud Code uses the `GEMINI.md` context-file bridge. That does not make it a Gemini CLI extension or a native skill registry integration.
 
 - OpenCode V1 and V2 use different plugin APIs. The package carries both entrypoints in one default export. The V1 object-form export is documented for OpenCode V1.18.29 and later; older V1 builds are not in the support claim.
 - OpenCode V2's `setup()` registers Hush through the native skill registry. The agent loads the skill on demand; users can explicitly invoke it with `@hush`. Older V2 builds without `ctx.skill.transform()` retain the legacy context-hook fallback.
