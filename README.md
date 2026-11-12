@@ -63,8 +63,9 @@ npx skills update hush -y
 ```
 
 The repository contains shared discovery at `.agents/skills/hush/SKILL.md`
-and native project paths for Cline, Roo Code, Junie, Windsurf, and OpenCode.
-They mirror the canonical file and are checked by `npm run validate`. After
+and native project paths for Claude Code, Cursor, Gemini CLI, GitHub Copilot,
+Cline, Roo Code, Junie, Windsurf, and OpenCode. They mirror the canonical
+file and are checked by `npm run validate`. After
 editing `skills/hush/SKILL.md`, run `npm run sync:skills`; do not edit the
 copies directly.
 
@@ -78,16 +79,17 @@ and can install Hush using the Skills CLI command above.
 
 ### Aider
 
-Aider does not provide native Agent Skills discovery. Load Hush as read-only
-context when starting Aider:
+Aider does not provide native Agent Skills discovery. This repository includes
+`.aider.conf.yml`, which loads Hush as read-only context automatically when
+Aider starts in the project. You can also load it explicitly:
 
 ```bash
 aider --read skills/hush/SKILL.md
 ```
 
-For persistent use, add the absolute path to `skills/hush/SKILL.md` under
-`read:` in `.aider.conf.yml`. AiderDesk is a separate product and has its
-own Skills CLI target (`aider-desk`); it is not the same as Aider.
+For a personal/global setup, add the absolute path to `skills/hush/SKILL.md`
+under `read:` in your user-level Aider config. AiderDesk is a separate product
+and has its own Skills CLI target (`aider-desk`); it is not the same as Aider.
 
 ## Build the distribution files
 
