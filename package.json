@@ -2,7 +2,7 @@
   "name": "hush-agent-plugin",
   "version": "1.0.0",
   "private": false,
-  "description": "Native Hush plugin for OpenCode V1/V2 and MiMo Code, with portable plugin manifests for coding agents.",
+  "description": "Cross-agent Hush skill and native integrations for Claude Code, Codex, Cursor, Cline, Roo, Junie, Windsurf, Gemini CLI, Copilot, OpenCode, Antigravity, and MiMo Code.",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -12,17 +12,27 @@
   "files": [
     "src/",
     "skills/",
-    ".opencode/skills/",
+    ".agents/",
+    ".opencode/",
+    ".cline/",
+    ".roo/",
+    ".junie/",
+    ".windsurf/",
+    ".mimocode/",
     "plugin.json",
     ".claude-plugin/",
     ".codex-plugin/",
-    ".agents/",
+    ".antigravity-plugin/",
+    "GEMINI.md",
     "README.md",
+    "docs/",
+    "scripts/",
     "LICENSE"
   ],
   "scripts": {
     "validate": "node scripts/validate.mjs",
-    "bundle": "node scripts/build.mjs"
+    "bundle": "node scripts/build.mjs",
+    "sync:skills": "node scripts/sync-skills.mjs"
   },
   "engines": {
     "node": ">=20"
