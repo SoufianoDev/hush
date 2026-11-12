@@ -45,6 +45,7 @@ if (!frontmatter) errors.push("skills/hush/SKILL.md: missing YAML frontmatter")
 else {
   if (!/^name:\s*hush\s*$/m.test(frontmatter[1])) errors.push("skills/hush/SKILL.md: name must be hush")
   if (!/^description:\s*.+$/m.test(frontmatter[1])) errors.push("skills/hush/SKILL.md: description is required")
+  if (!/^compatibility:\s*.+$/m.test(frontmatter[1])) errors.push("skills/hush/SKILL.md: compatibility metadata is required")
 }
 
 const antigravity = await json(".antigravity-plugin/plugin.json")
@@ -93,6 +94,9 @@ for (const file of mirroredSkills) {
     errors.push(`${file}: ${error.message}`)
   }
 }
+
+const aiderConfig = await readFile(path.join(root, ".aider.conf.yml"), "utf8")
+if (!aiderConfig.includes("skills/hush/SKILL.md")) errors.push(".aider.conf.yml: must load the canonical Hush skill as read-only context")
 
 const geminiContext = await readFile(path.join(root, "GEMINI.md"), "utf8")
 if (!geminiContext.includes("skills/hush/SKILL.md") || !geminiContext.includes("Google Cloud Code")) {
