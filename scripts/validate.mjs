@@ -73,9 +73,26 @@ for (const [file, target] of [
   if (!shim.includes(target)) errors.push(`${file}: expected to re-export the canonical TypeScript entrypoint`)
 }
 
-const openCodeSkill = await readFile(path.join(root, ".opencode/skills/hush/SKILL.md"), "utf8")
-if (openCodeSkill !== skill) {
-  errors.push(".opencode/skills/hush/SKILL.md: must stay identical to the canonical skills/hush/SKILL.md")
+const mirroredSkills = [
+  ".agents/skills/hush/SKILL.md",
+  ".cline/skills/hush/SKILL.md",
+  ".roo/skills/hush/SKILL.md",
+  ".junie/skills/hush/SKILL.md",
+  ".windsurf/skills/hush/SKILL.md",
+  ".opencode/skills/hush/SKILL.md",
+]
+for (const file of mirroredSkills) {
+  try {
+    const copy = await readFile(path.join(root, file), "utf8")
+    if (copy !== skill) errors.push(`${file}: must stay identical to the canonical skills/hush/SKILL.md`)
+  } catch (error) {
+    errors.push(`${file}: ${error.message}`)
+  }
+}
+
+const geminiContext = await readFile(path.join(root, "GEMINI.md"), "utf8")
+if (!geminiContext.includes("skills/hush/SKILL.md")) {
+  errors.push("GEMINI.md: must direct Gemini Code Assist to the canonical Hush skill")
 }
 
 const entry = await readFile(path.join(root, "src/index.ts"), "utf8")
@@ -95,6 +112,15 @@ if (claudeManifest) {
 const readme = await readFile(path.join(root, "README.md"), "utf8")
 if (!readme.includes("Customize → Plugins") || !readme.includes("Add marketplace")) {
   errors.push("README.md: Claude Web must document the native Plugins marketplace install flow")
+}
+for (const agent of ["cursor", "cline", "codex", "antigravity", "gemini-cli", "github-copilot", "junie", "opencode", "roo", "windsurf", "claude-code"]) {
+  if (!readme.includes(agent)) errors.push(`README.md: missing Skills CLI target ${agent}`)
+}
+if (!readme.includes("aider --read skills/hush/SKILL.md")) {
+  errors.push("README.md: missing the documented Aider read-only integration")
+}
+if (!readme.includes("GEMINI.md")) {
+  errors.push("README.md: missing the Gemini Code Assist context-file integration")
 }
 const website = await readFile(path.join(root, "website/index.html"), "utf8")
 if (!website.includes("hush-claude-plugin.zip") || website.includes("hush-web-skill.zip")) {
