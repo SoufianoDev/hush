@@ -13,6 +13,7 @@
     "src/",
     "skills/",
     ".agents/",
+    ".aider.conf.yml",
     ".claude/",
     ".cursor/",
     ".gemini/",
