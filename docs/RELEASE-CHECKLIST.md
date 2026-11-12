@@ -5,8 +5,8 @@ Before publishing a GitHub repository or package:
 - Keep one canonical source tree. Claude Web and ChatGPT Web have optional ZIP upload artifacts; Claude Web can also install directly from the repository marketplace. Coding applications should use their native plugin installation flows.
 
 1. Replace `OWNER/REPOSITORY` in the website and `.agents/plugins/marketplace.json`.
-2. Run `npm run sync:skills`, then `npm run validate`; verify the canonical skill matches the `.agents`, `.cline`, `.roo`, `.junie`, `.windsurf`, and `.opencode` project copies.
-3. Test `npx skills add SoufianoDev/hush --skill hush --agent cursor cline codex antigravity gemini-cli github-copilot junie opencode roo windsurf claude-code` against the current Skills CLI, then test `npx skills update hush -y`.
+2. Run `npm run sync:skills`, then `npm run validate`; verify the canonical skill matches the `.agents`, `.claude`, `.cursor`, `.gemini`, `.github`, `.cline`, `.roo`, `.junie`, `.windsurf`, and `.opencode` project copies.
+3. Test `npx skills add SoufianoDev/hush --skill hush --agent cursor cline codex antigravity gemini-cli github-copilot junie opencode roo windsurf claude-code` against the current Skills CLI, then test `npx skills update hush -y`; include the additional popular targets documented in the README.
 4. Test Aider with `aider --read skills/hush/SKILL.md`; verify the file is read-only context and document that Aider has no native progressive skill registry.
 5. Test the `GEMINI.md` bridge in Gemini Code Assist agent mode and separately test native skill discovery in Gemini CLI.
 6. Test the standard Agent Plugin in Cursor as well as the Skills CLI installation path.
