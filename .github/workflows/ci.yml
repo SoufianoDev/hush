@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Generate synchronized Agent Skills mirrors
+        run: npm run sync:skills
+
       - name: Validate all host manifests and entrypoints
         run: npm run validate
 
