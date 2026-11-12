@@ -1,6 +1,7 @@
 ---
 name: hush
 description: Use on every code write, edit, refactor or review. Keeps useless comments out of code, removes any that slipped in (only on lines you changed), then formats the touched files with the project's own formatter. Also use when the user mentions redundant or AI-generated comments, comment noise, comment cleanup, or formatting after edits.
+compatibility: Works with Agent Skills-compatible coding agents and can be loaded as Markdown context by agents without native skill discovery.
 ---
 
 # Hush
