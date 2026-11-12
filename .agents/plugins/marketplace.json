@@ -8,7 +8,7 @@
       "name": "hush",
       "source": {
         "source": "url",
-        "url": "https://github.com/OWNER/REPOSITORY"
+        "url": "https://github.com/SoufianoDev/hush"
       },
       "policy": {
         "installation": "AVAILABLE",
