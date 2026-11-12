@@ -75,6 +75,10 @@ for (const [file, target] of [
 
 const mirroredSkills = [
   ".agents/skills/hush/SKILL.md",
+  ".claude/skills/hush/SKILL.md",
+  ".cursor/skills/hush/SKILL.md",
+  ".gemini/skills/hush/SKILL.md",
+  ".github/skills/hush/SKILL.md",
   ".cline/skills/hush/SKILL.md",
   ".roo/skills/hush/SKILL.md",
   ".junie/skills/hush/SKILL.md",
@@ -91,7 +95,7 @@ for (const file of mirroredSkills) {
 }
 
 const geminiContext = await readFile(path.join(root, "GEMINI.md"), "utf8")
-if (!geminiContext.includes("skills/hush/SKILL.md")) {
+if (!geminiContext.includes("skills/hush/SKILL.md") || !geminiContext.includes("Google Cloud Code")) {
   errors.push("GEMINI.md: must direct Gemini Code Assist to the canonical Hush skill")
 }
 
