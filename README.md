@@ -24,7 +24,7 @@ Hush teaches coding agents to avoid comments that merely restate code, preserve 
 | Claude Web | Claude plugin marketplace / custom plugin upload | Customize → Plugins |
 | ChatGPT Web | Portable Plugin package | Public Plugins Directory after OpenAI review and publication |
 | Gemini Code Assist / Google Cloud Code | `GEMINI.md` project-context bridge; not a separate Skills plugin | Open the project in the Gemini Code Assist host |
-| Aider | Read-only Hush instructions via `--read`; no native Agent Skills discovery | `aider --read skills/hush/SKILL.md` |
+| Aider | Read-only context bridge through project config; no native Agent Skills discovery | `.aider.conf.yml` or `aider --read skills/hush/SKILL.md` |
 | AiderDesk | Agent Skills | Skills CLI (`aider-desk` target) |
 
 These are native host integrations where the host offers them. Claude Web now supports adding a Git repository marketplace or uploading a custom plugin ZIP; the same `.claude-plugin` package works in Claude Web and Claude Code. ChatGPT Web's public plugin path is not an immediate GitHub import: it requires a verified publisher, a package upload, automated checks, review, and publication.
