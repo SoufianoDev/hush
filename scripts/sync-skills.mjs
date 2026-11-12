@@ -6,6 +6,10 @@ const root = fileURLToPath(new URL("../", import.meta.url))
 const content = await readFile(path.join(root, "skills/hush/SKILL.md"), "utf8")
 const destinations = [
   ".agents/skills/hush/SKILL.md",
+  ".claude/skills/hush/SKILL.md",
+  ".cursor/skills/hush/SKILL.md",
+  ".gemini/skills/hush/SKILL.md",
+  ".github/skills/hush/SKILL.md",
   ".cline/skills/hush/SKILL.md",
   ".roo/skills/hush/SKILL.md",
   ".junie/skills/hush/SKILL.md",
